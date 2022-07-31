@@ -4,6 +4,8 @@ import Header from './Components/Header/Header';
 import { useEffect, useState ,lazy, Suspense} from 'react';
 
 
+const Albums = lazy(() => import("./Components/Album/Album"))
+
 function App() {
   const [data,setData] = useState([])
 
@@ -14,7 +16,7 @@ function App() {
     })
   },[])
 
-  const Albums = lazy(() => import("./Components/Album/Album"))
+ 
 
   const loadingImg = <div className="album-img">
   <img alt="loading" src="https://media.giphy.com/media/y1ZBcOGOOtlpC/200.gif" />
@@ -27,10 +29,10 @@ function App() {
         { data.map(e => {
 
           return (
-                <Suspense>
+                <Suspense fallback={loadingImg}>
                   <Albums
                     key={e.id.label}
-                    fallback={loadingImg}
+                    
                     image={e["im:image"][2].label}
                     title={e.title.label}
                     link={e.id.label}
